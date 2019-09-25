@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <title>Promo-Maker</title>
+</head>
+<body>
+    <div class=container>
+        <h1>Promo-Maker v1.0</h1>
+
+        <form class="promo-maker">
+            <h3>Hero Banner</h3>
+
+            <div class="form-group">
+              <label for="heroParentElement">Parent Element</label>
+              <input type="text" class="form-control" id="heroParentElement" value="hero-image-container" placeholder="Hero Parent Element">
+            </div>
+
+            <div class="form-group">
+              <label for="heroTextTop">Hero Text: Top</label>
+              <input type="text" class="form-control" id="heroTextTop" placeholder="Hero Text Top" value="Niños Gratis">
+            </div>
+
+            <div class="form-group">
+                <label for="heroTextBottom">Hero Text: Bottom</label>
+                <input type="text" class="form-control" id="heroTextBottom" placeholder="Hero Text Bottom" value="Ahorra hasta 150$ USD">
+            </div>
+
+            <div class="form-group">
+                <label for="heroTextLocation">Hero Text: Location (Left, Right, Center)</label>
+                <input type="text" class="form-control" id="heroTextLocation" placeholder="Hero Text Location" value="Center">
+            </div>
+            
+            <div class="form-group">
+                    <label for="heroImageDesktop">Desktop Hero Image ID.jpg</label>
+                    <input type="text" class="form-control" id="heroImageDesktop" placeholder="Hero Image ID" value="2344664.jpg">
+            </div>
+            
+            <div class="form-group">
+                    <label for="heroImageMobile">Mobile Hero Image ID.jpg</label>
+                    <input type="text" class="form-control" id="heroImageMobile" placeholder="Hero Image ID" value="23446643.jpg">
+            </div>
+
+            <button type="submit" class="btn btn-primary promo-submit">Submit</button>
+
+        </form>
+
+        <pre>
+            <code class="invoke-init-text"></code>
+        </pre>
+
+        <button type="submit" onclick="copyText()" class="btn btn-primary copy-text">Copy Code Snippet</button>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+</body>
+</html>
