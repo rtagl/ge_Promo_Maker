@@ -13,6 +13,8 @@ submitButton.addEventListener('click', (e)=>{
 
     const codeSnippet = document.querySelector('.invoke-init-text')
 
+
+
     codeSnippet.innerText = `
         init('.${heroParentElement}', function() {
             heroBanner(
@@ -29,14 +31,15 @@ submitButton.addEventListener('click', (e)=>{
     `
 });
 
-//copy function 
+//copy code snippet function 
 function copyText() {
     const snippetText = document.querySelector('.invoke-init-text').innerText;
     const textArea = document.createElement('textarea');
-    textArea.innerText = snippetText;
+    textArea.textContent= snippetText;
     document.body.append(textArea);
+    console.log(textArea.textContent)
     textArea.select()
     document.execCommand("copy");
     textArea.remove()
-    console.log('this is working');
 } 
+
