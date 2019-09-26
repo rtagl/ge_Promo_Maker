@@ -9,12 +9,18 @@
     <title>Promo-Maker</title>
 </head>
 <body>
-    <div class=container>
+    <div class="container">
         <h1>Promo-Maker v1.0</h1>
 
+        <div class="d-flex justify-content-between component-menu">
+            <button class="btn btn-success hero-banner-button">Hero Banner</button>
+            <button class="btn btn-success banner-button">Countdown Banner</button>
+            <button class="btn btn-success pills-button">Pills Button</button>
+            <button class="btn btn-success booking-button">Booking</button>
+        </div>
+        
         <form class="promo-maker">
-            <h3>Hero Banner</h3>
-
+            
             <div class="form-group">
               <label for="heroParentElement">Parent Element</label>
               <input type="text" class="form-control" id="heroParentElement" value="hero-image-container" placeholder="Hero Parent Element">
@@ -53,7 +59,8 @@
             <code class="invoke-init-text"></code>
         </pre>
 
-        <button type="submit" onclick="copyText()" class="btn btn-primary copy-text">Copy Code Snippet</button>
+        <div id="append-button">
+        </div>
 
     </div>
 
@@ -61,9 +68,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
     <script src="app.js"></script>
 </body>
 </html>

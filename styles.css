@@ -3,8 +3,12 @@
     border-radius: 4px
 }
 
+.container {
+    width:60%;
+
+}
 .promo-maker {
-    width: 50%;
+    width: 80%;
 }
 
 .form-group label {
@@ -17,9 +21,22 @@ pre code {
     border: 1px solid #999;
     display: block;
     padding: 10px;
-    width: 50%;
+    width: 80%;
     color: #c2005b;
     font-size: 12px;
     height: 400px;
     padding-left: 0px;
+}
+
+pre {
+    padding: 0px !important;
+}
+
+.copy-text {
+    margin-bottom: 20px;
+    margin-top: 0px;
+}
+
+.component-menu {
+    width: 80%
 }
