@@ -13,11 +13,14 @@ submitButton.addEventListener('click', (e)=>{
     copyTextButton.classList.add('btn', 'btn-primary', 'copy-text')
     copyTextButton.innerText = 'Copy Code Snippet'
     copyTextButton.setAttribute("onclick", "copyText()")
-    copyTextButton.setAttribute("type", "submit")
+    copyTextButton.setAttribute("type", "submit") 
 
-    document.querySelector('#append-button').append(copyTextButton)
+    if (document.querySelector('#append-button').childElementCount === 0) {
+        document.querySelector('#append-button').append(copyTextButton)
+    };
 
-    if (localStorage.getItem('include-heroBanner') === "true") {
+
+    if (localStorage.getItem('include-heroBanner') == "true") {
         codeSnippet.innerText += `
     heroBanner(
         '.${localStorage.getItem('heroParentElement')}',
@@ -29,27 +32,28 @@ submitButton.addEventListener('click', (e)=>{
             'http://sb.monetate.net/img/1/388/${localStorage.getItem('heroImageMobile')}'
         ]
     );`
-    } if (localStorage.getItem('include-countdown') === "true") {
-        codeSnippet.innerText += `
+    } 
+    if (localStorage.getItem('include-countdown') == "true") {
+    codeSnippet.innerText += `
     countDown(
         '.${localStorage.getItem('heroParentElement')}',
         '${localStorage.getItem('countdownStart')}', 
         '${localStorage.getItem('countdownEnd')}', 
-        {
-            offer:     '${localStorage.getItem('bannerOffer')}',
-            text:      '${localStorage.getItem('bannerText')}',
-            subText:   '${localStorage.getItem('bannerSubText')}',
-            timerText: '${localStorage.getItem('bannerTimerText')}'
-        },
+    {
+        offer:     '${localStorage.getItem('bannerOffer')}',
+        text:      '${localStorage.getItem('bannerText')}',
+        subText:   '${localStorage.getItem('bannerSubText')}',
+        timerText: '${localStorage.getItem('bannerTimerText')}'
+    },
         ['${localStorage.getItem('bannerMarket')}']
     );`
-    } else {
-        codeSnippet.innerText = "DON'T FORGET TO INCLUDE COMPONENTS!!";
-    }
-
+    } 
     codeSnippet.innerText += `
 });`
 
+    if (localStorage.getItem('include-countdown') == "false" && localStorage.getItem('include-heroBanner') == "false") {
+        codeSnippet.innerText = "DON'T FORGET TO INCLUDE COMPONENTS!!"
+    }
 });
 
 bannerButton.addEventListener('click', ()=> {
