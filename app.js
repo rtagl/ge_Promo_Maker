@@ -1,9 +1,14 @@
-const submitButton = document.querySelector('.promo-submit')
-const heroButton = document.querySelector('.hero-banner-button')
-const bannerButton = document.querySelector('.banner-button')
+const submitButton = document.querySelector('.promo-submit');
+const heroButton = document.querySelector('.hero-banner-button');
+const bannerButton = document.querySelector('.banner-button');
+const componentMenuButton = document.querySelectorAll('.component-menu-btn');
 
 submitButton.addEventListener('click', (e)=>{
     e.preventDefault();
+
+    const snippetBox = document.querySelector('pre code');
+    snippetBox.style.backgroundColor = "#eee";
+    snippetBox.style.border = "1px solid #999";
 
     const codeSnippet = document.querySelector('.invoke-init-text')
     codeSnippet.innerText = "init('hero-parent-element', function() {"
@@ -26,7 +31,7 @@ submitButton.addEventListener('click', (e)=>{
         '.${localStorage.getItem('heroParentElement')}',
         '${localStorage.getItem('heroTextTop')},
         '${localStorage.getItem('heroTextBottom')},
-        '${localStorage.getItem('heroTextLocation')},
+        '${localStorage.getItem('checkedRadio')},
         [
             'http://sb.monetate.net/img/1/388/${localStorage.getItem('heroImageDesktop')}',
             'http://sb.monetate.net/img/1/388/${localStorage.getItem('heroImageMobile')}'
@@ -56,6 +61,7 @@ submitButton.addEventListener('click', (e)=>{
     }
 });
 
+// POPULATES COUNTDOWN BANNER FORM UPON CLICKING COUNTDOWN BANNER BUTTON
 bannerButton.addEventListener('click', ()=> {
     let form = document.querySelector('.promo-inputs');
     let oldFormContent = document.querySelectorAll('.form-group');
@@ -77,17 +83,17 @@ bannerButton.addEventListener('click', ()=> {
     <div class="banner-form-group">
         <div class="form-group">
             <label for="countdownParentElement">Parent Element</label>
-            <input type="text" class="form-control banner-input" id="countdownParentElement" onkeyup="saveValue(this)" placeholder="Hero Parent Element">
+            <input type="text" class="form-control banner-input" id="countdownParentElement" onkeyup="saveValue(this)" placeholder="hero-parent-element">
         </div>
 
         <div class="form-group">
             <label for="countdownStart">Countdown Start Time:</label>
-            <input type="text" class="form-control banner-input" id="countdownStart" placeholder="Countdown Start Time" onkeyup="saveValue(this)">
+            <input type="datetime-local" class="form-control banner-input" id="countdownStart" placeholder="Countdown Start Time" onkeyup="saveValue(this)">
         </div>
 
         <div class="form-group">
             <label for="countdownEnd">Countdown End Time:</label>
-            <input type="text" class="form-control banner-input" id="countdownEnd" placeholder="Countdown End Time" onkeyup="saveValue(this)">
+            <input type="datetime-local" class="form-control banner-input" id="countdownEnd" placeholder="Countdown End Time" onkeyup="saveValue(this)">
         </div>
 
         <div class="form-group">
@@ -131,7 +137,7 @@ bannerButton.addEventListener('click', ()=> {
     }
 });
 
-
+// POPULATES HERO BANNER FORM UPON CLICKING HERO BANNER BUTTON
 heroButton.addEventListener('click', ()=> {
     let oldFormContent = document.querySelectorAll('.form-group')
     let form = document.querySelector('.promo-inputs')
@@ -166,8 +172,23 @@ heroButton.addEventListener('click', ()=> {
         </div>
 
         <div class="form-group">
-            <label for="heroTextLocation">Hero Text: Location (Left, Right, Center)</label>
-            <input type="text" class="form-control hero-input" id="heroTextLocation" onkeyup="saveValue(this)" placeholder="Hero Text Location">
+            <label for="heroTextLocation">Hero Text Location</label>
+
+            <div class="d-flex justify-content-between hero-text-radio-btn">
+
+                <label for="heroTextLocationLeft">
+                    <input type="radio" class="form-control hero-input" id="Left" name="textLocation" onclick="saveRadio(this)"> Left
+                </label>
+
+                <label for="heroTextLocationCenter">
+                    <input type="radio" class="form-control hero-input" id="Center" name="textLocation" onclick="saveRadio(this)"> Center
+                </label>
+
+                <label for="heroTextLocationRight">
+                    <input type="radio" class="form-control hero-input" id="Right" name="textLocation" onclick="saveRadio(this)"> Right
+                </label>
+
+            </div>
         </div>
         
         <div class="form-group">
@@ -180,6 +201,7 @@ heroButton.addEventListener('click', ()=> {
                 <input type="text" class="form-control hero-input" id="heroImageMobile" onkeyup="saveValue(this)" placeholder="Hero Image ID">
         </div>
     `;
+
     form.innerHTML = html
 
     let newFormContent = document.querySelectorAll('.hero-input');
@@ -190,18 +212,50 @@ heroButton.addEventListener('click', ()=> {
 
     if(localStorage.getItem('include-heroBanner') === "true") {
         document.querySelector('#include-heroBanner').checked = true;
-    } else {
+    }  else {
         document.querySelector('#include-heroBanner').checked = false;
     }
+
+    if(localStorage.getItem('checkedRadio') === "Center") {
+        document.querySelector('#Center').checked = true;
+    } else {
+        document.querySelector('#Center').checked = false;
+    }
+
+    if(localStorage.getItem('checkedRadio') === "Left") {
+        document.querySelector('#Left').checked = true;
+    } else {
+        document.querySelector('#Left').checked = false;
+    }
+
+    if(localStorage.getItem('checkedRadio') === "Right") {
+        document.querySelector('#Right').checked = true;
+
+    } else {
+        document.querySelector('#Right').checked = false;
+    }
+
 });
 
+componentMenuButton.forEach(item => {
+    item.addEventListener('click', () => {
+        submitButton.style.display = "block";
+    })
+})
 
+// SAVE COMPONENT CHECKBOX
 function save(e) {
+    
     let checkbox = document.querySelector(`#${e.id}`).checked
     localStorage.setItem(e.id, checkbox)
 }
 
-// SAVES VALUES TYPED INTO INPUTS
+//SAVE HERO BANNER TEXT LOCATION RADIO BUTTON
+function saveRadio(e) {
+    localStorage.setItem('checkedRadio', e.id)
+}
+ 
+// SAVES USER TEXT INPUTS
 function saveValue(e) {
     let id = e.id;
     let val = e.value;
@@ -226,3 +280,5 @@ function copyText() {
     document.execCommand("copy");
     textArea.remove()
 } 
+
+

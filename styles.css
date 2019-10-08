@@ -8,7 +8,7 @@
 
 }
 .promo-maker {
-    width: 80%;
+    width: 100%;
 }
 
 .form-group label {
@@ -17,14 +17,11 @@
 
 pre code {
     font-family: monospace;
-    background-color: #eee;
-    border: 1px solid #999;
     display: block;
     padding: 10px;
-    width: 80%;
+    width: 100%;
     color: #c2005b;
     font-size: 12px;
-    /* height: 400px; */
     padding-left: 0px;
 }
 
@@ -38,9 +35,48 @@ pre {
 }
 
 .component-menu {
-    width: 80%
+    width: 100%
 }
 
 .include-component {
     margin-top: 20px;
+}
+
+.component-menu button {
+    width: 20%;
+    background-color: rgb(93, 0, 255);
+}
+
+.component-menu button:hover {
+    background-color: rgb(157, 0, 255);
+}
+
+.promo-submit {
+    margin-top: 20px;
+}
+
+.hero-text-radio-btn {
+    width: 80%;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 950px) {
+    .component-menu-btn {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (max-width: 690px) {
+    .component-menu-btn {
+        font-size: 8px;
+    }
+}
+
+body {
+    background-color: rgb(238, 238, 238)
+}
+
+.form-container {
+    width: 80%;
+    margin: 0 auto;
 }
