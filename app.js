@@ -43,8 +43,8 @@ submitButton.addEventListener('click', (e)=>{
     codeSnippet.innerText += `
     countDown(
         '.${localStorage.getItem('heroParentElement')}',
-        '${dateFormat(localStorage.getItem('countdownStart'))}', 
-        '${dateFormat(localStorage.getItem('countdownEnd'))}', 
+        '${getDateAndTime(localStorage.getItem('countdownStart'))}', 
+        '${getDateAndTime(localStorage.getItem('countdownEnd'))}', 
     {
         offer:     '${localStorage.getItem('bannerOffer')}',
         text:      '${localStorage.getItem('bannerText')}',
@@ -53,11 +53,29 @@ submitButton.addEventListener('click', (e)=>{
     },
         ['${localStorage.getItem('bannerMarket')}']
     );`
-    } 
+    }
+
+    if (localStorage.getItem('include-pills') == "true") {
+    codeSnippet.innerText += `
+    pills({
+        pillDetails: {
+            color: '${localStorage.getItem('pillColor')}',
+            text: '${localStorage.getItem('pillText')}',
+            class: '${localStorage.getItem('pillClass')}'
+        },
+        pillCriteria: {
+        ${addPillData()}
+    `
+    codeSnippet.innerText += `
+        },
+        pillExclusions: {
+    `
+    };
+    
     codeSnippet.innerText += `
 });`
 
-    if (localStorage.getItem('include-countdown') == "false" && localStorage.getItem('include-heroBanner') == "false") {
+    if (localStorage.getItem('include-countdown') == "false" && localStorage.getItem('include-heroBanner') == "false" && localStorage.getItem('include-pills') == "false") {
         codeSnippet.innerText = "DON'T FORGET TO INCLUDE COMPONENTS!!"
     }
 });
@@ -269,7 +287,7 @@ pillsButton.addEventListener('click', () => {
 
         <div class="form-group">
             <label for="pillClass">Pill Class:</label>
-            <input type="text" class="form-control pill-input" id="pillCLass" placeholder="Pill Class" onkeyup="saveValue(this)">
+            <input type="text" class="form-control pill-input" id="pillClass" placeholder="Pill Class" onkeyup="saveValue(this)">
         </div>
 
         <div class="form-group">
@@ -321,26 +339,106 @@ pillsButton.addEventListener('click', () => {
         <hr>
 
         <div class="form-group">
-            <label for="bannerTimerText">Banner Timer Text:</label>
-            <input type="text" class="form-control pill-input" id="bannerTimerText" onkeyup="saveValue(this)" placeholder="Banner Timer Text">
+            <h3>Number of Nights</h3>
+            <div class="d-flex justify-content-between">
+                <div class="nights-input">
+                    <label for="minNights">Min Nights:</label>
+                    <input type="Number" class="form-control pill-input" id="minNights" onkeyup="saveValue(this)" placeholder="Minimum Nights">
+                </div>
+                <div class="nights-input">
+                    <label for="maxNights">Max Nights:</label>
+                    <input type="number" class="form-control pill-input" id="maxNights" onkeyup="saveValue(this)" placeholder="Maximum Nights">
+                </div>
+            </div>
         </div>
 
         <div class="form-group">
-            <label for="bannerMarket">Banner Market:</label>
-            <input type="text" class="form-control pill-input" id="bannerMarket" onkeyup="saveValue(this)" placeholder="Countdown Market">
+            <label for="departurePorts">Departure Ports: Comma Separated</label>
+            <input type="text" class="form-control pill-input" id="departurePorts" onkeyup="saveValue(this)" placeholder="Departure Ports">
         </div>
+
+        <div class="form-group">
+            <label for="destinationPorts">Destination Ports:</label>
+            <input type="text" class="form-control pill-input" id="destinationPorts" onkeyup="saveValue(this)" placeholder="Destination Ports">
+        </div>
+        
+        <hr>
+
+        <h2>EXCLUSIONS</h2>
+
+        <div class="form-group">
+            <label for="exShipCodes">Ship Codes:</label>
+            <input type="text" class="form-control pill-input" id="exShipCodes" onkeyup="saveValue(this)" placeholder="Exclude Ships IDs">
+        </div>
+
+        <div class="form-group">
+            <h3>Number of Nights</h3>
+                <div class="d-flex justify-content-between">
+                <div class="nights-input">
+                    <label for="exMinNights">Min Nights:</label>
+                    <input type="Number" class="form-control pill-input" id="exMinNights" onkeyup="saveValue(this)" placeholder="Minimum Nights">
+                </div>
+                <div class="nights-input">
+                    <label for="exMaxNights">Max Nights:</label>
+                    <input type="number" class="form-control pill-input" id=exMaxNights" onkeyup="saveValue(this)" placeholder="Maximum Nights">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="exDeparturePorts">Exclude Departure Ports:</label>
+            <input type="text" class="form-control pill-input" id="exDeparturePorts" onkeyup="saveValue(this)" placeholder="Departure Ports">
+        </div>
+
+        <div class="form-group">
+            <label for="exDestinationPorts">Excl Destination Ports:</label>
+            <input type="text" class="form-control pill-input" id="exDestinationPorts" onkeyup="saveValue(this)" placeholder="Destination Ports">
+        </div>
+
+        <div class="form-group">
+            <h3>Excl. Sailing Ranges</h3>
+            <div class="d-flex justify-content-between">
+                <div class="dates-input">
+                    <label for="exSailingStartDate">Start Date:</label>
+                    <input type="date" class="form-control pill-input" id="exSailingStartDate" onkeyup="saveValue(this)" placeholder="Start Date">
+                </div>
+                <div class="dates-input">
+                    <label for="exSailingEndDate">End Date:</label>
+                    <input type="date" class="form-control pill-input" id="exSailingEndDate" onkeyup="saveValue(this)" placeholder="End Date">
+                </div>
+            </div>
+            <div class="insert-pill-exSailing-dates">
+
+            </div>
+            <button class="btn add-exSailing-dates btn-success">+ Add Sailing Dates Excl.+</button>
+        </div>
+
+        <div class="form-group">
+            <label for="exPillClass">Excl. Pill Class:</label>
+            <input type="text" class="form-control pill-input" id="exPillCLass" placeholder="Excl. Pill Class" onkeyup="saveValue(this)">
+        </div>
+
     </div>
     `;
 
     form.innerHTML = html
     const newFormContent = document.querySelectorAll('.pill-input');
-    const addPromoDatesBtn = document.querySelector('.add-promo-dates')
-    const addSailingDatesBtn = document.querySelector('.add-sailing-dates')
+    const addPromoDatesBtn = document.querySelector('.add-promo-dates');
+    const addSailingDatesBtn = document.querySelector('.add-sailing-dates');
+    const addExSailingDatesBtn = document.querySelector('.add-exSailing-dates');
     let promoClickCount = 1
     let sailingClickCount = 1
+    let exSailingClickCount = 1
 
     for (let i = 0; i < newFormContent.length; i++) {
         newFormContent[i].value = getSavedValue(newFormContent[i].id);
+    }
+
+    // CHECK TO INCLUDE PILLS
+    if(localStorage.getItem('include-pills') === "true") {
+        document.querySelector('#include-pills').checked = true;
+    }  else {
+        document.querySelector('#include-pills').checked = false;
     }
 
     addPromoDatesBtn.addEventListener('click', (e) => {
@@ -397,6 +495,34 @@ pillsButton.addEventListener('click', () => {
         }
 
     })
+
+    addExSailingDatesBtn.addEventListener('click', (e) => {
+        e.preventDefault()
+        exSailingClickCount += 1;
+        let insertMoreExSailingDates = document.querySelector('.insert-pill-exSailing-dates')
+
+        let exSailingDateInputs = `
+        <div class="d-flex justify-content-between added-inputs">
+            <div class="dates-input">
+                <label for="exSailingStartDate${exSailingClickCount}">Start Date:</label>
+                <input type="date" class="form-control added-exSailing-date" id="exSailingStartDate${exSailingClickCount}" onkeyup="saveValue(this)">
+            </div>
+            <div class="dates-input">
+                <label for="sailingEndDate${exSailingClickCount}">End Date:</label>
+                <input type="date" class="form-control added-exSailing-date" id="exSailingEndDate${exSailingClickCount}" onkeyup="saveValue(this)">
+            </div>
+        </div>
+        `;
+
+        insertMoreExSailingDates.innerHTML += exSailingDateInputs;
+
+        const addedExSailingDates = document.querySelectorAll('.added-exSailing-date');
+        
+        for (let i = 0; i < addedExSailingDates.length; i++) {
+            addedExSailingDates[i].value = getSavedValue(addedExSailingDates[i].id);
+        }
+
+    })
     
 })
 
@@ -443,7 +569,7 @@ function copyText() {
     textArea.remove()
 } 
 
-function dateFormat(date) {
+function getDateAndTime(date) {
     let inputDate = date
     let year, month, day, time;
 
@@ -460,4 +586,29 @@ function dateFormat(date) {
     return `${monthsArr[month-1]} ${day} ${year} ${time + ':00'}`
 }
 
+function addPillData() {
+    let codeSnippet = ``;
+    for (let i = 0; i < localStorage.length; i++) {
+        if (localStorage.key(i).includes('shipCodes') && localStorage.getItem('shipCodes') !== '') {
+            let shipCodes = localStorage.getItem(localStorage.key(i)).replace(/ /g, '');
+            let shipCodesArr = shipCodes.split(',');
 
+            for (let i = 0; i < shipCodesArr.length; i++) {
+                shipCodesArr[i] = `'${shipCodesArr[i]}'`
+            }
+            codeSnippet += `    shipCodes: [${shipCodesArr}],
+            `
+        }
+        if (localStorage.key(i).includes('pillPromo')) {
+
+        }
+    };
+    return codeSnippet;
+}
+
+function getDate(date) {
+    let inputDate = date;
+    let month, day, year;
+
+    
+};
