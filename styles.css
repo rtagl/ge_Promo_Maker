@@ -23,6 +23,8 @@ pre code {
     color: #c2005b;
     font-size: 12px;
     padding-left: 0px;
+    margin: 0 auto;
+    border-radius: 6px;
 }
 
 pre {
@@ -33,6 +35,7 @@ pre {
     margin-bottom: 20px;
     margin-top: 0px;
 }
+
 
 .component-menu {
     width: 100%
@@ -79,4 +82,20 @@ body {
 .form-container {
     width: 80%;
     margin: 0 auto;
+}
+
+.add-promo-dates {
+    margin-top: 20px;
+}
+
+.add-sailing-dates {
+    margin-top: 20px;
+}
+
+.dates-input {
+    width: 48%;
+}
+
+.added-inputs {
+    margin-top: 8px;
 }
