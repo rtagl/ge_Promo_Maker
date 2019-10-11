@@ -4,6 +4,19 @@ const bannerButton = document.querySelector('.banner-button');
 const pillsButton = document.querySelector('.pills-button');
 const componentMenuButton = document.querySelectorAll('.component-menu-btn');
 
+// Variable State
+let data = {
+    heroComponent: {
+
+    },
+    bannerComponent: {
+
+    },
+    pillsComponent: {
+        
+    }
+};
+
 submitButton.addEventListener('click', (e)=>{
     e.preventDefault();
 
@@ -29,22 +42,35 @@ submitButton.addEventListener('click', (e)=>{
     if (localStorage.getItem('include-heroBanner') == "true") {
         codeSnippet.innerText += `
     heroBanner(
-        '.${localStorage.getItem('heroParentElement')}',
-        '${localStorage.getItem('heroTextTop')},
-        '${localStorage.getItem('heroTextBottom')},
-        '${localStorage.getItem('checkedRadio')},
+        ${data.heroComponent['heroParentElement'] ? "'." + data.heroComponent['heroParentElement'] + "'" : "''"},
+        ${data.heroComponent['heroTextTop'] ? "'" + data.heroComponent['heroTextTop'] + "'" : "''"},
+        ${data.heroComponent['heroTextBottom'] ? "'" + data.heroComponent['heroTextBottom'] + "'" : "''"},
+        ${localStorage.getItem('checkedRadio') ? "'" + localStorage.getItem('checkedRadio') + "'" : "'Center'"},
         [
-            'http://sb.monetate.net/img/1/388/${localStorage.getItem('heroImageDesktop')}',
-            'http://sb.monetate.net/img/1/388/${localStorage.getItem('heroImageMobile')}'
+        ${data.heroComponent['heroImageDesktop'] ? "'http://sb.monetate.net/img/1/388/" + data.heroComponent['heroImageDesktop'] + "'" : "''"},
+        ${data.heroComponent['heroImageMobile'] ? "'http://sb.monetate.net/img/1/388/" + data.heroComponent['heroImageMobile'] + "'" : "''"},
         ]
-    );`
-    } 
+        `;
+    }
+
+    //     codeSnippet.innerText += `
+    // heroBanner(
+    //     '.${localStorage.getItem('heroParentElement')}',
+    //     '${localStorage.getItem('heroTextTop')},
+    //     '${localStorage.getItem('heroTextBottom')},
+    //     '${localStorage.getItem('checkedRadio')},
+    //     [
+    //         'http://sb.monetate.net/img/1/388/${localStorage.getItem('heroImageDesktop')}',
+    //         'http://sb.monetate.net/img/1/388/${localStorage.getItem('heroImageMobile')}'
+    //     ]
+    // );`
+ 
     if (localStorage.getItem('include-countdown') == "true") {
     codeSnippet.innerText += `
     countDown(
         '.${localStorage.getItem('heroParentElement')}',
         '${getDateAndTime(localStorage.getItem('countdownStart'))}', 
-        '${getDateAndTime(localStorage.getItem('countdownEnd'))}', 
+        '${getDateAndTime(data.countdownEnd)}', 
     {
         offer:     '${localStorage.getItem('bannerOffer')}',
         text:      '${localStorage.getItem('bannerText')}',
@@ -64,7 +90,7 @@ submitButton.addEventListener('click', (e)=>{
             class: '${localStorage.getItem('pillClass')}'
         },
         pillCriteria: {
-        ${addPillData()}
+
     `
     codeSnippet.innerText += `
         },
@@ -532,7 +558,7 @@ componentMenuButton.forEach(item => {
     })
 })
 
-// SAVE COMPONENT CHECKBOX
+// INCLUDE COMPONENT CHECKBOX
 function save(e) {
     let checkbox = document.querySelector(`#${e.id}`).checked
     localStorage.setItem(e.id, checkbox)
@@ -542,12 +568,21 @@ function save(e) {
 function saveRadio(e) {
     localStorage.setItem('checkedRadio', e.id)
 }
- 
+
 // SAVES USER TEXT INPUTS
 function saveValue(e) {
     let id = e.id;
     let val = e.value;
-    localStorage.setItem(id, val)
+
+    if (e.classList.contains('hero-input')) {
+        data.heroComponent[id] = val;
+    } else if (e.classList.contains('banner-input')) {
+        data.bannerComponent[id] = val;
+    } else if (e.classList.contains('pill-input')) {
+        data.pillsComponent[id] = val;
+    } 
+
+    //localStorage.setItem(id, val)
 }
 
 // GATHERS INPUT VALUES FROM LOCALSTORAGE
@@ -558,7 +593,7 @@ function getSavedValue(v) {
     return localStorage.getItem(v);
 }
 
-// COPY CODE SNIPPET w BUTTON 
+// COPY CODE SNIPPET w COPY BUTTON 
 function copyText() {
     const snippetText = document.querySelector('.invoke-init-text').innerText;
     const textArea = document.createElement('textarea');
@@ -569,6 +604,7 @@ function copyText() {
     textArea.remove()
 } 
 
+// Parses date into 'Month Day Year HH:MM:SS' Format 
 function getDateAndTime(date) {
     let inputDate = date
     let year, month, day, time;
@@ -586,29 +622,43 @@ function getDateAndTime(date) {
     return `${monthsArr[month-1]} ${day} ${year} ${time + ':00'}`
 }
 
-function addPillData() {
-    let codeSnippet = ``;
-    for (let i = 0; i < localStorage.length; i++) {
-        if (localStorage.key(i).includes('shipCodes') && localStorage.getItem('shipCodes') !== '') {
-            let shipCodes = localStorage.getItem(localStorage.key(i)).replace(/ /g, '');
-            let shipCodesArr = shipCodes.split(',');
-
-            for (let i = 0; i < shipCodesArr.length; i++) {
-                shipCodesArr[i] = `'${shipCodesArr[i]}'`
-            }
-            codeSnippet += `    shipCodes: [${shipCodesArr}],
-            `
-        }
-        if (localStorage.key(i).includes('pillPromo')) {
-
-        }
-    };
-    return codeSnippet;
-}
-
+// Parses date into Month Day Year Format
 function getDate(date) {
     let inputDate = date;
     let month, day, year;
 
-    
+    let arr1 = inputDate.split('-');
+    year = arr1[0];
+    month = arr1[1];
+    day = arr1[2]
+
+    console.log(month, day, year);
+    let monthsArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+    return `'${monthsArr[month - 1]} ${day} ${year}'`
 };
+
+// Add code snippet logic for pill init function
+// function addPillData() {
+//     let codeSnippet = ``;
+//     for (let i = 0; i < localStorage.length; i++) {
+//         if (localStorage.key(i).includes('shipCodes') && localStorage.getItem('shipCodes') !== '') {
+//             let shipCodes = localStorage.getItem(localStorage.key(i)).replace(/ /g, '');
+//             let shipCodesArr = shipCodes.split(',');
+
+//             for (let i = 0; i < shipCodesArr.length; i++) {
+//                 shipCodesArr[i] = `'${shipCodesArr[i]}'`
+//             }
+//             codeSnippet += `    shipCodes: [${shipCodesArr}],
+//             `
+//         }
+//         if (localStorage.key(i).includes('pillPromo')) {
+//             getDate(localStorage.getItem(localStorage.key(i)));
+//         }
+//         if (localStorage.key(i).includes('minNights')) {
+//             codeSnippet += `    `
+//         }
+//     };
+//     return codeSnippet;
+// }
+
