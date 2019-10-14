@@ -13,7 +13,15 @@ let data = {
 
     },
     pillsComponent: {
-        
+        pillDetails: {
+
+        },
+        pillCriteria: {
+
+        },
+        pillExclusions: {
+
+        }
     }
 };
 
@@ -52,32 +60,20 @@ submitButton.addEventListener('click', (e)=>{
         ]
         `;
     }
-
-    //     codeSnippet.innerText += `
-    // heroBanner(
-    //     '.${localStorage.getItem('heroParentElement')}',
-    //     '${localStorage.getItem('heroTextTop')},
-    //     '${localStorage.getItem('heroTextBottom')},
-    //     '${localStorage.getItem('checkedRadio')},
-    //     [
-    //         'http://sb.monetate.net/img/1/388/${localStorage.getItem('heroImageDesktop')}',
-    //         'http://sb.monetate.net/img/1/388/${localStorage.getItem('heroImageMobile')}'
-    //     ]
-    // );`
  
     if (localStorage.getItem('include-countdown') == "true") {
-    codeSnippet.innerText += `
+        codeSnippet.innerText += `
     countDown(
-        '.${localStorage.getItem('heroParentElement')}',
-        '${getDateAndTime(localStorage.getItem('countdownStart'))}', 
-        '${getDateAndTime(data.countdownEnd)}', 
+        ${data.bannerComponent['countdownParentElement'] ? "'." + data.bannerComponent['countdownParentElement'] + "'" : "''"},
+        ${data.bannerComponent['countdownStart'] ? "'" + getDateAndTime(data.bannerComponent['countdownStart']) + "'" : "''"}, 
+        ${data.bannerComponent['countdownEnd'] ? "'" + getDateAndTime(data.bannerComponent['countdownEnd']) + "'" : "''"}', 
     {
-        offer:     '${localStorage.getItem('bannerOffer')}',
-        text:      '${localStorage.getItem('bannerText')}',
-        subText:   '${localStorage.getItem('bannerSubText')}',
-        timerText: '${localStorage.getItem('bannerTimerText')}'
+        offer:     ${data.bannerComponent['bannerOffer'] ? "'" + data.bannerComponent['bannerOffer'] + "'" : "''"},
+        text:      ${data.bannerComponent['bannerText'] ? "'" + data.bannerComponent['bannerText'] + "'" : "''"},
+        subText:   ${data.bannerComponent['bannerSubText'] ? "'" + data.bannerComponent['bannerSubText'] + "'" : "''"},
+        timerText: ${data.bannerComponent['bannerTimerText'] ? "'" + data.bannerComponent['bannerTimerText'] + "'" : "''"},
     },
-        ['${localStorage.getItem('bannerMarket')}']
+        [${data.bannerComponent['bannerMarket'] ? "'" + data.bannerComponent['bannerMarket'] + "'," : "'',"}]
     );`
     }
 
@@ -85,13 +81,12 @@ submitButton.addEventListener('click', (e)=>{
     codeSnippet.innerText += `
     pills({
         pillDetails: {
-            color: '${localStorage.getItem('pillColor')}',
-            text: '${localStorage.getItem('pillText')}',
-            class: '${localStorage.getItem('pillClass')}'
+            color: ${data.pillsComponent['pillColor'] ? "'" + data.pillsComponent['pillColor'] + "'" : "''"},
+            text: ${data.pillsComponent['pillText'] ? "'" + data.pillsComponent['pillText'] + "'" : "''"},
+            class: ${data.pillsComponent['pillClass'] ? "'" + data.pillsComponent['pillClass'] + "'" : "''"}
         },
-        pillCriteria: {
-
     `
+    // Add for loop to go through pillCriteria and add whatever exists
     codeSnippet.innerText += `
         },
         pillExclusions: {
@@ -303,22 +298,22 @@ pillsButton.addEventListener('click', () => {
     <div class="pills-form-group">
         <div class="form-group">
             <label for="pillColor">Pill Color:</label>
-            <input type="text" class="form-control pill-input" id="pillColor" onkeyup="saveValue(this)" placeholder="Pill Color">
+            <input type="text" class="form-control pill-input pill-details" id="pillColor" onkeyup="saveValue(this)" placeholder="Pill Color">
         </div>
 
         <div class="form-group">
             <label for="pillText">Pill Text:</label>
-            <input type="text" class="form-control pill-input" id="pillText" placeholder="Pill Text" onkeyup="saveValue(this)">
+            <input type="text" class="form-control pill-input pill-details" id="pillText" placeholder="Pill Text" onkeyup="saveValue(this)">
         </div>
 
         <div class="form-group">
             <label for="pillClass">Pill Class:</label>
-            <input type="text" class="form-control pill-input" id="pillClass" placeholder="Pill Class" onkeyup="saveValue(this)">
+            <input type="text" class="form-control pill-input pill-details" id="pillClass" placeholder="Pill Class" onkeyup="saveValue(this)">
         </div>
 
         <div class="form-group">
             <label for="shipCodes">Ship Codes:</label>
-            <input type="text" class="form-control pill-input" id="shipCodes" onkeyup="saveValue(this)" placeholder="Ships IDs">
+            <input type="text" class="form-control pill-input pill-criteria" id="shipCodes" onkeyup="saveValue(this)" placeholder="Ships IDs">
         </div>
 
         <hr>
@@ -328,11 +323,11 @@ pillsButton.addEventListener('click', () => {
             <div class="d-flex justify-content-between">
                 <div class="dates-input">
                     <label for="pillPromoStartDates">Start Date:</label>
-                    <input type="date" class="form-control pill-input" id="pillPromoStartDates" onkeyup="saveValue(this)" placeholder="Pill Promo Start Date">
+                    <input type="date" class="form-control pill-input pill-criteria" id="pillPromoStartDates" onkeyup="saveValue(this)" placeholder="Pill Promo Start Date">
                 </div>
                 <div class="dates-input">
                     <label for="pillPromoEndDates">End Date:</label>
-                    <input type="date" class="form-control pill-input" id="pillPromoEndDates" onkeyup="saveValue(this)" placeholder="Pill Promo End Date">
+                    <input type="date" class="form-control pill-input pill-criteria" id="pillPromoEndDates" onkeyup="saveValue(this)" placeholder="Pill Promo End Date">
                 </div>
             </div>
             <div class="insert-pill-promo-dates">
@@ -349,11 +344,11 @@ pillsButton.addEventListener('click', () => {
             <div class="d-flex justify-content-between">
                 <div class="dates-input">
                     <label for="sailingStartDate">Start Date:</label>
-                    <input type="date" class="form-control pill-input" id="sailingStartDate" onkeyup="saveValue(this)" placeholder="Start Date">
+                    <input type="date" class="form-control pill-input pill-criteria" id="sailingStartDate" onkeyup="saveValue(this)" placeholder="Start Date">
                 </div>
                 <div class="dates-input">
                     <label for="sailingEndDate">End Date:</label>
-                    <input type="date" class="form-control pill-input" id="sailingEndDate" onkeyup="saveValue(this)" placeholder="End Date">
+                    <input type="date" class="form-control pill-input pill-criteria" id="sailingEndDate" onkeyup="saveValue(this)" placeholder="End Date">
                 </div>
             </div>
             <div class="insert-pill-sailing-dates">
@@ -369,23 +364,23 @@ pillsButton.addEventListener('click', () => {
             <div class="d-flex justify-content-between">
                 <div class="nights-input">
                     <label for="minNights">Min Nights:</label>
-                    <input type="Number" class="form-control pill-input" id="minNights" onkeyup="saveValue(this)" placeholder="Minimum Nights">
+                    <input type="Number" class="form-control pill-input pill-criteria" id="minNights" onkeyup="saveValue(this)" placeholder="Minimum Nights">
                 </div>
                 <div class="nights-input">
                     <label for="maxNights">Max Nights:</label>
-                    <input type="number" class="form-control pill-input" id="maxNights" onkeyup="saveValue(this)" placeholder="Maximum Nights">
+                    <input type="number" class="form-control pill-input pill-criteria" id="maxNights" onkeyup="saveValue(this)" placeholder="Maximum Nights">
                 </div>
             </div>
         </div>
 
         <div class="form-group">
             <label for="departurePorts">Departure Ports: Comma Separated</label>
-            <input type="text" class="form-control pill-input" id="departurePorts" onkeyup="saveValue(this)" placeholder="Departure Ports">
+            <input type="text" class="form-control pill-input pill-criteria" id="departurePorts" onkeyup="saveValue(this)" placeholder="Departure Ports">
         </div>
 
         <div class="form-group">
             <label for="destinationPorts">Destination Ports:</label>
-            <input type="text" class="form-control pill-input" id="destinationPorts" onkeyup="saveValue(this)" placeholder="Destination Ports">
+            <input type="text" class="form-control pill-input pill-criteria" id="destinationPorts" onkeyup="saveValue(this)" placeholder="Destination Ports">
         </div>
         
         <hr>
@@ -394,7 +389,7 @@ pillsButton.addEventListener('click', () => {
 
         <div class="form-group">
             <label for="exShipCodes">Ship Codes:</label>
-            <input type="text" class="form-control pill-input" id="exShipCodes" onkeyup="saveValue(this)" placeholder="Exclude Ships IDs">
+            <input type="text" class="form-control pill-input pill-exclusions" id="exShipCodes" onkeyup="saveValue(this)" placeholder="Exclude Ships IDs">
         </div>
 
         <div class="form-group">
@@ -402,23 +397,23 @@ pillsButton.addEventListener('click', () => {
                 <div class="d-flex justify-content-between">
                 <div class="nights-input">
                     <label for="exMinNights">Min Nights:</label>
-                    <input type="Number" class="form-control pill-input" id="exMinNights" onkeyup="saveValue(this)" placeholder="Minimum Nights">
+                    <input type="Number" class="form-control pill-input pill-exclusions" id="exMinNights" onkeyup="saveValue(this)" placeholder="Minimum Nights">
                 </div>
                 <div class="nights-input">
                     <label for="exMaxNights">Max Nights:</label>
-                    <input type="number" class="form-control pill-input" id=exMaxNights" onkeyup="saveValue(this)" placeholder="Maximum Nights">
+                    <input type="number" class="form-control pill-input pill-exclusions" id=exMaxNights" onkeyup="saveValue(this)" placeholder="Maximum Nights">
                 </div>
             </div>
         </div>
 
         <div class="form-group">
             <label for="exDeparturePorts">Exclude Departure Ports:</label>
-            <input type="text" class="form-control pill-input" id="exDeparturePorts" onkeyup="saveValue(this)" placeholder="Departure Ports">
+            <input type="text" class="form-control pill-input pill-exclusions" id="exDeparturePorts" onkeyup="saveValue(this)" placeholder="Departure Ports">
         </div>
 
         <div class="form-group">
             <label for="exDestinationPorts">Excl Destination Ports:</label>
-            <input type="text" class="form-control pill-input" id="exDestinationPorts" onkeyup="saveValue(this)" placeholder="Destination Ports">
+            <input type="text" class="form-control pill-input pill-exclusions" id="exDestinationPorts" onkeyup="saveValue(this)" placeholder="Destination Ports">
         </div>
 
         <div class="form-group">
@@ -426,11 +421,11 @@ pillsButton.addEventListener('click', () => {
             <div class="d-flex justify-content-between">
                 <div class="dates-input">
                     <label for="exSailingStartDate">Start Date:</label>
-                    <input type="date" class="form-control pill-input" id="exSailingStartDate" onkeyup="saveValue(this)" placeholder="Start Date">
+                    <input type="date" class="form-control pill-input pill-exclusions" id="exSailingStartDate" onkeyup="saveValue(this)" placeholder="Start Date">
                 </div>
                 <div class="dates-input">
                     <label for="exSailingEndDate">End Date:</label>
-                    <input type="date" class="form-control pill-input" id="exSailingEndDate" onkeyup="saveValue(this)" placeholder="End Date">
+                    <input type="date" class="form-control pill-input pill-exclusions" id="exSailingEndDate" onkeyup="saveValue(this)" placeholder="End Date">
                 </div>
             </div>
             <div class="insert-pill-exSailing-dates">
@@ -441,7 +436,7 @@ pillsButton.addEventListener('click', () => {
 
         <div class="form-group">
             <label for="exPillClass">Excl. Pill Class:</label>
-            <input type="text" class="form-control pill-input" id="exPillCLass" placeholder="Excl. Pill Class" onkeyup="saveValue(this)">
+            <input type="text" class="form-control pill-input pill-exclusions" id="exPillCLass" placeholder="Excl. Pill Class" onkeyup="saveValue(this)">
         </div>
 
     </div>
@@ -476,11 +471,11 @@ pillsButton.addEventListener('click', () => {
         <div class="d-flex justify-content-between added-inputs">
             <div class="dates-input">
                 <label for="pillPromoStartDates${promoClickCount}">Start Date:</label>
-                <input type="date" class="form-control added-promo-date" id="pillPromoStartDates${promoClickCount}" onkeyup="saveValue(this)">
+                <input type="date" class="form-control added-promo-date pill-input pill-criteria" id="pillPromoStartDates${promoClickCount}" onkeyup="saveValue(this)">
             </div>
             <div class="dates-input">
                 <label for="pillPromoEndDates${promoClickCount}">End Date:</label>
-                <input type="date" class="form-control added-promo-date" id="pillPromoEndDates${promoClickCount}" onkeyup="saveValue(this)">
+                <input type="date" class="form-control added-promo-date pill-input pill-criteria" id="pillPromoEndDates${promoClickCount}" onkeyup="saveValue(this)">
             </div>
         </div>
         `;
@@ -503,11 +498,11 @@ pillsButton.addEventListener('click', () => {
         <div class="d-flex justify-content-between added-inputs">
             <div class="dates-input">
                 <label for="sailingStartDate${sailingClickCount}">Start Date:</label>
-                <input type="date" class="form-control added-sailing-date" id="sailingStartDate${sailingClickCount}" onkeyup="saveValue(this)">
+                <input type="date" class="form-control added-sailing-date pill-input pill-criteria" id="sailingStartDate${sailingClickCount}" onkeyup="saveValue(this)">
             </div>
             <div class="dates-input">
                 <label for="sailingEndDate${sailingClickCount}">End Date:</label>
-                <input type="date" class="form-control added-sailing-date" id="sailingEndDate${sailingClickCount}" onkeyup="saveValue(this)">
+                <input type="date" class="form-control added-sailing-date pill-input pill-criteria" id="sailingEndDate${sailingClickCount}" onkeyup="saveValue(this)">
             </div>
         </div>
         `;
@@ -531,11 +526,11 @@ pillsButton.addEventListener('click', () => {
         <div class="d-flex justify-content-between added-inputs">
             <div class="dates-input">
                 <label for="exSailingStartDate${exSailingClickCount}">Start Date:</label>
-                <input type="date" class="form-control added-exSailing-date" id="exSailingStartDate${exSailingClickCount}" onkeyup="saveValue(this)">
+                <input type="date" class="form-control added-exSailing-date pill-input pill-exclusion" id="exSailingStartDate${exSailingClickCount}" onkeyup="saveValue(this)">
             </div>
             <div class="dates-input">
                 <label for="sailingEndDate${exSailingClickCount}">End Date:</label>
-                <input type="date" class="form-control added-exSailing-date" id="exSailingEndDate${exSailingClickCount}" onkeyup="saveValue(this)">
+                <input type="date" class="form-control added-exSailing-date pill-input pill-exclusion" id="exSailingEndDate${exSailingClickCount}" onkeyup="saveValue(this)">
             </div>
         </div>
         `;
@@ -579,9 +574,17 @@ function saveValue(e) {
     } else if (e.classList.contains('banner-input')) {
         data.bannerComponent[id] = val;
     } else if (e.classList.contains('pill-input')) {
-        data.pillsComponent[id] = val;
+
+        if (e.classList.contains('pill-criteria')) {
+            data.pillsComponent.pillCriteria[id] = val
+        } else if (e.classList.contains('pill-exclusions')) {
+            data.pillsComponent.pillExclusions[id] = val
+        } else if (e.classList.contains('pill-details')) {
+            data.pillsComponent.pillDetails[id] = val
+        }
     } 
 
+    console.log(data)
     //localStorage.setItem(id, val)
 }
 
