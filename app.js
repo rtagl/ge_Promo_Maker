@@ -78,18 +78,20 @@ submitButton.addEventListener('click', (e)=>{
     }
 
     if (localStorage.getItem('include-pills') == "true") {
-    codeSnippet.innerText += `
+        codeSnippet.innerText += `
     pills({
         pillDetails: {
-            color: ${data.pillsComponent['pillColor'] ? "'" + data.pillsComponent['pillColor'] + "'" : "''"},
+            color: ${data.pillsComponent['pillColor'] ? "'" + data.pillsComponent['pillColor'] + "'" : "'#0b214d'"},
             text: ${data.pillsComponent['pillText'] ? "'" + data.pillsComponent['pillText'] + "'" : "''"},
-            class: ${data.pillsComponent['pillClass'] ? "'" + data.pillsComponent['pillClass'] + "'" : "''"}
+            class: ${data.pillsComponent['pillClass'] ? "'" + data.pillsComponent['pillClass'] + "'" : "'pill_promo'"}
         },
-    `
-    // Add for loop to go through pillCriteria and add whatever exists
-    codeSnippet.innerText += `
+        pillCriteria: {
+            ${getPillCriteria()}
         },
         pillExclusions: {
+            ${getPillExclusions()}
+        }
+    });
     `
     };
     
@@ -665,3 +667,7 @@ function getDate(date) {
 //     return codeSnippet;
 // }
 
+function getPillCriteria() {
+    let pillCriteriaValues = document.querySelectorAll('.pill-criteria')
+    console.log(pillCriteriaValues)
+}
