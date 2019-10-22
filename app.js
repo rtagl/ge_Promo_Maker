@@ -28,19 +28,14 @@ let data = {
 loadEventListeners();
 
 function loadEventListeners() {
-    submitButton.addEventListener('click', submitPromoForms);
+    submitButton.addEventListener('click', submitPromoFields);
     heroButton.addEventListener('click', showHeroFields);
     bannerButton.addEventListener('click', showBannerFields);
     pillsButton.addEventListener('click', showPillFields);
 }
 
-function submitPromoForms(e) {
+function submitPromoFields(e) {
     e.preventDefault();
-    const snippetBox = document.querySelector('pre code');
-    snippetBox.style.backgroundColor = "#eee";
-    snippetBox.style.border = "1px solid #999";
-    const codeSnippet = document.querySelector('.invoke-init-text')
-    codeSnippet.innerText = "init('hero-parent-element', function() {"
     // Create Copy Text Button upon submit
     const copyTextButton = document.createElement('button')
     copyTextButton.classList.add('btn', 'btn-primary', 'copy-text')
@@ -52,61 +47,7 @@ function submitPromoForms(e) {
         document.querySelector('#append-button').append(copyTextButton)
     };
 
-
-    if (localStorage.getItem('include-heroBanner') == "true") {
-        codeSnippet.innerText += `
-    heroBanner(
-        ${data.heroComponent['heroParentElement'] ? "'." + data.heroComponent['heroParentElement'] + "'" : "''"},
-        ${data.heroComponent['heroTextTop'] ? "'" + data.heroComponent['heroTextTop'] + "'" : "''"},
-        ${data.heroComponent['heroTextBottom'] ? "'" + data.heroComponent['heroTextBottom'] + "'" : "''"},
-        ${localStorage.getItem('checkedRadio') ? "'" + localStorage.getItem('checkedRadio') + "'" : "'Center'"},
-        [
-        ${data.heroComponent['heroImageDesktop'] ? "'http://sb.monetate.net/img/1/388/" + data.heroComponent['heroImageDesktop'] + "'" : "''"},
-        ${data.heroComponent['heroImageMobile'] ? "'http://sb.monetate.net/img/1/388/" + data.heroComponent['heroImageMobile'] + "'" : "''"},
-        ]
-        `;
-    }
- 
-    if (localStorage.getItem('include-countdown') == "true") {
-        codeSnippet.innerText += `
-    countDown(
-        ${data.bannerComponent['countdownParentElement'] ? "'." + data.bannerComponent['countdownParentElement'] + "'" : "''"},
-        ${data.bannerComponent['countdownStart'] ? "'" + getDateAndTime(data.bannerComponent['countdownStart']) + "'" : "''"}, 
-        ${data.bannerComponent['countdownEnd'] ? "'" + getDateAndTime(data.bannerComponent['countdownEnd']) + "'" : "''"}, 
-    {
-        offer:     ${data.bannerComponent['bannerOffer'] ? "'" + data.bannerComponent['bannerOffer'] + "'" : "''"},
-        text:      ${data.bannerComponent['bannerText'] ? "'" + data.bannerComponent['bannerText'] + "'" : "''"},
-        subText:   ${data.bannerComponent['bannerSubText'] ? "'" + data.bannerComponent['bannerSubText'] + "'" : "''"},
-        timerText: ${data.bannerComponent['bannerTimerText'] ? "'" + data.bannerComponent['bannerTimerText'] + "'" : "''"},
-    },
-        [${data.bannerComponent['bannerMarket'] ? "'" + data.bannerComponent['bannerMarket'] + "'" : "''"}]
-    );`
-    }
-
-    if (localStorage.getItem('include-pills') == "true") {
-        codeSnippet.innerText += `
-    pills({
-        pillDetails: {
-            color: ${data.pillsComponent['pillColor'] ? "'" + data.pillsComponent['pillColor'] + "'" : "'#0b214d'"},
-            text: ${data.pillsComponent['pillText'] ? "'" + data.pillsComponent['pillText'] + "'" : "'Savings For This Itinerary'"},
-            class: ${data.pillsComponent['pillClass'] ? "'" + data.pillsComponent['pillClass'] + "'" : "'pill_promo'"}
-        },
-        pillCriteria: {
-            ${getPillCriteria()}
-        },
-        pillExclusions: {
-            
-        }
-    });
-    `
-    };
-    
-    codeSnippet.innerText += `
-});`
-
-    if (localStorage.getItem('include-countdown') == "false" && localStorage.getItem('include-heroBanner') == "false" && localStorage.getItem('include-pills') == "false") {
-        codeSnippet.innerText = "DON'T FORGET TO INCLUDE COMPONENTS!!"
-    }
+    generateCodeSnippet();
 };
 
 // POPULATES COUNTDOWN BANNER FORM UPON CLICKING COUNTDOWN BANNER BUTTON
@@ -386,13 +327,10 @@ function getDate(date) {
 
 function getPillCriteria() {
     let criteriaCodeSnippet = ''
-    let pillCriteriaShipCodes = document.querySelector('#shipCodes')
-    let pillCriteriaPromoDates = document.querySelectorAll('.promo-dates')
-    
+
     if (data.pillsComponent.pillCriteria.shipCodes) {
         criteriaCodeSnippet += `shipCodes: [${data.pillsComponent.pillCriteria.shipCodes.split(/[ ,]+/)}],`
     }
-
     for (var key in data.pillsComponent.pillCriteria) {
         if (key.indexOf('pillPromoStartDate') != -1) {
             criteriaCodeSnippet += `
@@ -438,19 +376,47 @@ function getPillCriteria() {
         `
     }
          
-    
-    // if (pillCriteriaShipCodes.value.length >= 2 && pillCriteriaShipCodes.value !== "") {
-    //     criteriaCodeSnippet += `shipCodes: ['${pillCriteriaShipCodes.value}']`
-    // }
-    
-    // if (pillCriteriaPromoDates.length > 0) {
-    //     criteriaCodeSnippet += `promoDates: [
-    //         {`
-    //     for (let i = 0; i < pillCriteriaPromoDates.length; i++ ) {
+    return criteriaCodeSnippet
+}
 
-    //     }
-    // }
+function getPillExclusions() {
+    let criteriaCodeSnippet = ''
 
+    if (data.pillsComponent.pillExclusions.exShipCodes) {
+        criteriaCodeSnippet += `shipCodes: [${data.pillsComponent.pillExclusions.exShipCodes.split(/[ ,]+/)}],`
+    }
+
+    for (var key in data.pillsComponent.pillExclusions) {
+        if (key.indexOf('exSailingStartDate') != -1) {
+            criteriaCodeSnippet += `
+            sailingDates: [
+                {
+                    startDate: ${getDate(data.pillsComponent.pillExclusions[key])},`
+            
+        }
+        if (key.indexOf('exSailingEndDate') != -1) {
+            criteriaCodeSnippet += `
+                    endDate: ${getDate(data.pillsComponent.pillExclusions[key])}
+                }
+            ],`
+        }
+    }
+    if (data.pillsComponent.pillExclusions.exMaxNights && data.pillsComponent.pillExclusions.exMinNights) {
+        criteriaCodeSnippet += `
+            numberOfNights: [${data.pillsComponent.pillExclusions.exMinNights}, ${data.pillsComponent.pillExclusions.exMaxNights}],
+        ` 
+    }
+    if (data.pillsComponent.pillExclusions.exDeparturePorts) {
+        criteriaCodeSnippet += `
+            departurePorts: [${data.pillsComponent.pillExclusions.exDeparturePorts}],
+        `
+    }
+    if (data.pillsComponent.pillExclusions.exDestinationPorts) {
+        criteriaCodeSnippet += `
+            departurePorts: [${data.pillsComponent.pillExclusions.exDestinationPorts}],
+        `
+    }
+         
     return criteriaCodeSnippet
 }
 
@@ -738,4 +704,67 @@ function pillFieldsHTML() {
 
     </div>
     `
+}
+
+function generateCodeSnippet() {
+    const snippetBox = document.querySelector('pre code');
+    snippetBox.style.backgroundColor = "#eee";
+    snippetBox.style.border = "1px solid #999";
+    const codeSnippet = document.querySelector('.invoke-init-text')
+    codeSnippet.innerText = "init('hero-parent-element', function() {"
+
+    if (localStorage.getItem('include-heroBanner') == "true") {
+        codeSnippet.innerText += `
+    heroBanner(
+        ${data.heroComponent['heroParentElement'] ? "'." + data.heroComponent['heroParentElement'] + "'" : "''"},
+        ${data.heroComponent['heroTextTop'] ? "'" + data.heroComponent['heroTextTop'] + "'" : "''"},
+        ${data.heroComponent['heroTextBottom'] ? "'" + data.heroComponent['heroTextBottom'] + "'" : "''"},
+        ${localStorage.getItem('checkedRadio') ? "'" + localStorage.getItem('checkedRadio') + "'" : "'Center'"},
+        [
+        ${data.heroComponent['heroImageDesktop'] ? "'http://sb.monetate.net/img/1/388/" + data.heroComponent['heroImageDesktop'] + "'" : "''"},
+        ${data.heroComponent['heroImageMobile'] ? "'http://sb.monetate.net/img/1/388/" + data.heroComponent['heroImageMobile'] + "'" : "''"},
+        ]
+        `;
+    }
+ 
+    if (localStorage.getItem('include-countdown') == "true") {
+        codeSnippet.innerText += `
+    countDown(
+        ${data.bannerComponent['countdownParentElement'] ? "'." + data.bannerComponent['countdownParentElement'] + "'" : "''"},
+        ${data.bannerComponent['countdownStart'] ? "'" + getDateAndTime(data.bannerComponent['countdownStart']) + "'" : "''"}, 
+        ${data.bannerComponent['countdownEnd'] ? "'" + getDateAndTime(data.bannerComponent['countdownEnd']) + "'" : "''"}, 
+    {
+        offer:     ${data.bannerComponent['bannerOffer'] ? "'" + data.bannerComponent['bannerOffer'] + "'" : "''"},
+        text:      ${data.bannerComponent['bannerText'] ? "'" + data.bannerComponent['bannerText'] + "'" : "''"},
+        subText:   ${data.bannerComponent['bannerSubText'] ? "'" + data.bannerComponent['bannerSubText'] + "'" : "''"},
+        timerText: ${data.bannerComponent['bannerTimerText'] ? "'" + data.bannerComponent['bannerTimerText'] + "'" : "''"},
+    },
+        [${data.bannerComponent['bannerMarket'] ? "'" + data.bannerComponent['bannerMarket'] + "'" : "''"}]
+    );`
+    }
+
+    if (localStorage.getItem('include-pills') == "true") {
+        codeSnippet.innerText += `
+    pills({
+        pillDetails: {
+            color: ${data.pillsComponent['pillColor'] ? "'" + data.pillsComponent['pillColor'] + "'" : "'#0b214d'"},
+            text: ${data.pillsComponent['pillText'] ? "'" + data.pillsComponent['pillText'] + "'" : "'Savings For This Itinerary'"},
+            class: ${data.pillsComponent['pillClass'] ? "'" + data.pillsComponent['pillClass'] + "'" : "'pill_promo'"}
+        },
+        pillCriteria: {
+            ${getPillCriteria()}
+        },
+        pillExclusions: {
+            ${getPillExclusions()}
+        }
+    });
+    `
+    };
+    
+    codeSnippet.innerText += `
+});`
+
+    if (localStorage.getItem('include-countdown') == "false" && localStorage.getItem('include-heroBanner') == "false" && localStorage.getItem('include-pills') == "false") {
+        codeSnippet.innerText = "DON'T FORGET TO INCLUDE COMPONENTS!!"
+    }
 }
