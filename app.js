@@ -2,6 +2,7 @@ const submitButton = document.querySelector('.promo-submit');
 const heroButton = document.querySelector('.hero-banner-button');
 const bannerButton = document.querySelector('.banner-button');
 const pillsButton = document.querySelector('.pills-button');
+const bookingButton = document.querySelector('.booking-button');
 const componentMenuButton = document.querySelectorAll('.component-menu-btn');
 
 // Variable State
@@ -22,6 +23,9 @@ let data = {
         pillExclusions: {
 
         }
+    },
+    bookingComponent: {
+
     }
 };
 
@@ -32,6 +36,7 @@ function loadEventListeners() {
     heroButton.addEventListener('click', showHeroFields);
     bannerButton.addEventListener('click', showBannerFields);
     pillsButton.addEventListener('click', showPillFields);
+    bookingButton.addEventListener('click', showBookingFields);
 }
 
 function submitPromoFields(e) {
@@ -228,6 +233,20 @@ function showPillFields(e) {
 
     })
     
+};
+
+function showBookingFields(e) {
+    const oldFormContent = document.querySelectorAll('.form-group');
+    const form = document.querySelector('.promo-inputs');
+    
+    // HIDES FORM INPUTS FROM OTHER COMPONENTS
+    for(let i = 0; i < oldFormContent.length; i++) {
+        oldFormContent[i].style.display = "none";
+    }
+
+    let html = `${bookingFieldsHTML()}`;
+
+    form.innerHTML = html
 };
 
 componentMenuButton.forEach(item => {
@@ -706,6 +725,124 @@ function pillFieldsHTML() {
     `
 }
 
+function bookingFieldsHTML() {
+    return `
+    <div class="d-flex justify-content-between include-component">
+        <h3>Booking Exit Popup</h3>
+        <div>
+            <label for="include-bookingPopup">Include Component?</label>
+            <input type="checkbox" id="include-bookingPopup" onclick="saveCheckbox(this)">
+        </div>
+    </div>
+    <div class="booking-form-group">
+        <div class="form-group">
+            <label for="popupBackgroundColor">Popup Background Color</label>
+            <input type="text" class="form-control exitbanner-details booking-popup-input" id="popupBackgroundColor" onkeyup="saveValue(this)" value="#ffffff">
+        </div>
+
+        <div class="form-group">
+            <label for="popupOfferText">Popup Offer Text:</label>
+            <input type="text" class="form-control exitbanner-details booking-popup-input" id="popupOfferText" placeholder="Monthly Offer Text" onchange="saveValue(this)">
+        </div>
+
+        <div class="form-group">
+            <label for="popupOfferSubText">Popup Offer SubText:</label>
+            <input type="text" class="form-control exitbanner-details booking-popup-input" id="popupOfferSubText" placeholder="Flash Sale Text (if applicable)" onchange="saveValue(this)">
+        </div>
+
+        <div class="form-group">
+            <label for="popupTextColor">Offer Text Color:</label>
+            <input type="text" class="form-control exitbanner-details booking-popup-input" id="popupTextColor" onkeyup="saveValue(this)" value="#0b214d">
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+                <label for="continueBtnText">Continue Button Text:</label>
+                <input type="text" class="form-control continueBtn booking-popup-input" id="continueBtnText" onkeyup="saveValue(this)" value="continuar">
+        </div>
+        
+        <div class="form-group">
+                <label for="continueBtnTextColor">Continue Button Text Color:</label>
+                <input type="text" class="form-control continueBtn booking-popup-input" id="continueBtnTextColor" onkeyup="saveValue(this)" value="#000000">
+        </div>
+
+        <div class="form-group">
+            <label for="continueBtnBackgroundColor">Continue Button Background Color:</label>
+            <input type="text" class="form-control continueBtn booking-popup-input" id="continueBtnBackgroundColor" onkeyup="saveValue(this)" value="#febd11">
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label for="cancelBtnText">Cancel Button Text:</label>
+            <input type="text" class="form-control cancelBtn booking-popup-input" id="cancelBtnText" onkeyup="saveValue(this)" value="cancelar">
+        </div>
+
+        <div class="form-group">
+            <label for="cancelBtnTextColor">Continue Button Text Color:</label>
+            <input type="text" class="form-control cancelBtn booking-popup-input" id="cancelBtnTextColor" onkeyup="saveValue(this)" value="#000000">
+        </div>
+
+        <div class="form-group">
+            <label for="cancelBtnBackgroundColor">Continue Button Text Color:</label>
+            <input type="text" class="form-control cancelBtn booking-popup-input" id="cancelBtnBackgroundColor" onkeyup="saveValue(this)" value="#ffffff">
+        </div>
+
+        <div class="form-group">
+            <label for="cancelBtnBorderColor">Continue Button Text Color:</label>
+            <input type="text" class="form-control cancelBtn booking-popup-input" id="cancelBtnBorderColor" onkeyup="saveValue(this)" value="#000000">
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label for="exitHours">Popup Hours:</label>
+            <input type="text" class="form-control exitClock booking-popup-input" id="exitHours" onkeyup="saveValue(this)" value="cancelar">
+        </div>
+
+        <div class="form-group">
+            <label for="exitMinutes">Popup Minutes:</label>
+            <input type="text" class="form-control exitClock booking-popup-input" id="exitMinutes" onkeyup="saveValue(this)" value="#000000">
+        </div>
+
+        <div class="form-group">
+            <label for="exitSeconds">Popup Seconds:</label>
+            <input type="text" class="form-control exitClock booking-popup-input" id="ExitSeconds" onkeyup="saveValue(this)" value="#ffffff">
+        </div>
+
+        <div class="form-group">
+            <label for="exitHoursLeft">Popup Hours Left:</label>
+            <input type="text" class="form-control exitClock booking-popup-input" id="exitHoursLeft" onkeyup="saveValue(this)" value="#000000">
+        </div>
+
+        <div class="form-group">
+            <label for="exitClockTextColor">Exit Clock Text Color:</label>
+            <input type="text" class="form-control exitClock booking-popup-input" id="exitClockTextColor" onkeyup="saveValue(this)" value="#0b214d">
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label for="exitClockStartTime">Exit Clock Start Time:</label>
+            <input type="datetime-local" class="form-control exitClockCountdown booking-popup-input" id="exitClockStartTime" onkeyup="saveValue(this)">
+        </div>
+
+        <div class="form-group">
+            <label for="exitClockTextColor">Exit Clock End Time:</label>
+            <input type="datetime-local" class="form-control exitClockCountdown booking-popup-input" id="exitClockEndTime" onkeyup="saveValue(this)">
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label for="exitClockCountry">Exit Clock Country Code:</label>
+            <input type="text" class="form-control exitClockCountry booking-popup-input" id="exitClockCountry" onkeyup="saveValue(this)" placeholder="lac">
+        </div>
+
+    </div>
+    `  
+} 
 function generateCodeSnippet() {
     const snippetBox = document.querySelector('pre code');
     snippetBox.style.backgroundColor = "#eee";
