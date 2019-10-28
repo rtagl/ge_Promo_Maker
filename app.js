@@ -246,7 +246,20 @@ function showBookingFields(e) {
 
     let html = `${bookingFieldsHTML()}`;
 
-    form.innerHTML = html
+    form.innerHTML = html;
+
+    let newFormContent = document.querySelectorAll('.booking-popup-input');
+
+    for (let i = 0; i < newFormContent.length; i++) {
+        newFormContent[i].value = getSavedValue(newFormContent[i].id);
+    }
+
+    // CHECK TO INCLUDE Exit Popup
+    if(localStorage.getItem('include-bookingPopup') === "true") {
+        document.querySelector('#include-bookingPopup').checked = true;
+    }  else {
+        document.querySelector('#include-bookingPopup').checked = false;
+    }
 };
 
 componentMenuButton.forEach(item => {
@@ -292,10 +305,26 @@ function saveValue(e) {
 
 // GATHERS INPUT VALUES FROM LOCALSTORAGE
 function getSavedValue(v) {
-    if(!localStorage.getItem(v)) {
-        return "";
+    let inputId = v;
+    // if (inputId.classList.contains('booking-popup-input')) {
+    //     console.log('WOOHOO');
+    // };
+    console.log(inputId.value)
+    if (data.heroComponent[inputId] !== undefined) {
+        return data.heroComponent[inputId];
+    } else if (data.bannerComponent[inputId] !== undefined) {
+        return data.bannerComponent[inputId];
+    } else {
+        return ''
     }
-    return localStorage.getItem(v);
+    
+        
+
+
+    // if(!localStorage.getItem(v)) {
+    //     return "";
+    // }
+    // return localStorage.getItem(v);
 }
 
 // COPY CODE SNIPPET w COPY BUTTON 
@@ -843,6 +872,7 @@ function bookingFieldsHTML() {
     </div>
     `  
 } 
+
 function generateCodeSnippet() {
     const snippetBox = document.querySelector('pre code');
     snippetBox.style.backgroundColor = "#eee";
@@ -897,6 +927,12 @@ function generateCodeSnippet() {
     });
     `
     };
+
+    if (localStorage.getItem('include-BookingPopup') == "true") {
+        codeSnippet.innerText += `
+        
+        `
+    }
     
     codeSnippet.innerText += `
 });`
