@@ -31,6 +31,7 @@ let data = {
 
 loadEventListeners();
 
+// Loads All Event Listeners
 function loadEventListeners() {
     submitButton.addEventListener('click', submitPromoFields);
     heroButton.addEventListener('click', showHeroFields);
@@ -39,6 +40,7 @@ function loadEventListeners() {
     bookingButton.addEventListener('click', showBookingFields);
 }
 
+// Creates Copy Button and Code Snippet Text
 function submitPromoFields(e) {
     e.preventDefault();
     // Create Copy Text Button upon submit
@@ -262,6 +264,7 @@ function showBookingFields(e) {
     }
 };
 
+
 componentMenuButton.forEach(item => {
     item.addEventListener('click', () => {
         submitButton.style.display = "block";
@@ -306,10 +309,7 @@ function saveValue(e) {
 // GATHERS INPUT VALUES FROM LOCALSTORAGE
 function getSavedValue(v) {
     let inputId = v;
-    // if (inputId.classList.contains('booking-popup-input')) {
-    //     console.log('WOOHOO');
-    // };
-    console.log(inputId.value)
+
     if (data.heroComponent[inputId] !== undefined) {
         return data.heroComponent[inputId];
     } else if (data.bannerComponent[inputId] !== undefined) {
@@ -318,16 +318,13 @@ function getSavedValue(v) {
         return ''
     }
     
-        
-
-
     // if(!localStorage.getItem(v)) {
     //     return "";
     // }
     // return localStorage.getItem(v);
 }
 
-// COPY CODE SNIPPET w COPY BUTTON 
+// COPY CODE SNIPPET TEXT WHEN COPY BUTTON IS CLICKED 
 function copyText() {
     const snippetText = document.querySelector('.invoke-init-text').innerText;
     const textArea = document.createElement('textarea');
@@ -541,6 +538,7 @@ function bannerFieldsHTML() {
     `
 }
 
+// GENERATES HTML FOR HERO FORM FIELDS
 function heroFieldsHTML() {
     return `
     <div class="d-flex justify-content-between include-component">
@@ -597,6 +595,7 @@ function heroFieldsHTML() {
     `
 }
 
+// GENERATES HTML FOR PILL FORM FIELDS
 function pillFieldsHTML() {
     return `
     <div class="d-flex justify-content-between include-component">
@@ -754,6 +753,7 @@ function pillFieldsHTML() {
     `
 }
 
+// GENERATES HTML FOR BOOKING FORM FIELDS
 function bookingFieldsHTML() {
     return `
     <div class="d-flex justify-content-between include-component">
@@ -873,6 +873,7 @@ function bookingFieldsHTML() {
     `  
 } 
 
+// GENERATES CODE SNIPPET BASED ON COMPONENTS INCLUDED AND NON-EMPTY INPUT VALUES
 function generateCodeSnippet() {
     const snippetBox = document.querySelector('pre code');
     snippetBox.style.backgroundColor = "#eee";
