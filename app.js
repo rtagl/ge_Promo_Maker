@@ -315,6 +315,10 @@ function getSavedValue(v) {
         return data.heroComponent[inputId];
     } else if (data.bannerComponent[inputId] !== undefined) {
         return data.bannerComponent[inputId];
+    } else if (data.pillsComponent.pillCriteria[inputId] !== undefined) {
+        return data.pillsComponent.pillCriteria[inputId];
+    } else if (data.pillsComponent.pillExclusions[inputId] !== undefined) {
+        return data.pillsComponent.pillExclusions[inputId];
     } else {
         return ''
     }
@@ -501,14 +505,16 @@ function bannerFieldsHTML() {
             <input type="text" class="form-control banner-input" id="countdownParentElement" onkeyup="saveValue(this)" placeholder="hero-parent-element">
         </div>
 
-        <div class="form-group">
-            <label for="countdownStart">Countdown Start Time:</label>
-            <input type="datetime-local" class="form-control banner-input" id="countdownStart" placeholder="Countdown Start Time" onchange="saveValue(this)">
-        </div>
+        <div class="d-flex justify-content-between">
+            <div class="form-group">
+                <label for="countdownStart">Countdown Start Time:</label>
+                <input type="datetime-local" class="form-control banner-input" id="countdownStart" placeholder="Countdown Start Time" onchange="saveValue(this)">
+            </div>
 
-        <div class="form-group">
-            <label for="countdownEnd">Countdown End Time:</label>
-            <input type="datetime-local" class="form-control banner-input" id="countdownEnd" placeholder="Countdown End Time" onchange="saveValue(this)">
+            <div class="form-group">
+                <label for="countdownEnd">Countdown End Time:</label>
+                <input type="datetime-local" class="form-control banner-input" id="countdownEnd" placeholder="Countdown End Time" onchange="saveValue(this)">
+            </div>
         </div>
 
         <div class="form-group">
@@ -541,13 +547,13 @@ function bannerFieldsHTML() {
         </div>
 
         <div class="form-group">
-            <label for="bannerMarket">Banner Market:</label>
+            <label for="daysInMarketLanguage">Banner Market:</label>
             <input type="text" class="form-control banner-input" id="daysInMarketLanguage" onkeyup="saveValue(this)" placeholder="DIAS">
         </div>
 
         <div class="form-group">
-            <label for="bannerMarket">Banner Market:</label>
-            <input type="text" class="form-control banner-input" id="bannerMarket" onkeyup="saveValue(this)" placeholder="Countdown Market. e.g lac, ita">
+            <label for="dst">Is it Day Lights Savings?</label>
+            <input type="text" class="form-control banner-input" id="dst" onkeyup="saveValue(this)" placeholder="True or False?">
         </div>
     </div>
     `
