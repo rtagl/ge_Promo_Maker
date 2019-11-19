@@ -18,13 +18,14 @@ let data = {
 
         },
         pillCriteria: {
-
+        
         },
         pillExclusions: {
 
         }
     },
     bookingComponent: {
+
 
     }
 };
@@ -511,8 +512,8 @@ function bannerFieldsHTML() {
         </div>
 
         <div class="form-group">
-            <label for="bannerOffer">Offer:</label>
-            <input type="text" class="form-control banner-input" id="bannerOffer" onkeyup="saveValue(this)" placeholder="Offer">
+            <label for="bannerOffer">ADÉMAS:</label>
+            <input type="text" class="form-control banner-input" id="bannerOffer" onkeyup="saveValue(this)" placeholder="ADÉMAS: ">
         </div>
         
         <div class="form-group">
@@ -520,19 +521,33 @@ function bannerFieldsHTML() {
                 <input type="text" class="form-control banner-input" id="bannerText" onkeyup="saveValue(this)" placeholder="Offer Text">
         </div>
         
-        <div class="form-group">
-                <label for="bannerSubText">Banner Sub Text:</label>
-                <input type="text" class="form-control banner-input" id="bannerSubText" onkeyup="saveValue(this)" placeholder="Banner Sub Text">
+        <div class="form-group">Offer SubText:</label>
+                <input type="text" class="form-control banner-input" id="bannerSubText" onkeyup="saveValue(this)" placeholder="Offer SubText">
         </div>
 
         <div class="form-group">
             <label for="bannerTimerText">Banner Timer Text:</label>
-            <input type="text" class="form-control banner-input" id="bannerTimerText" onkeyup="saveValue(this)" placeholder="Banner Timer Text">
+            <input type="text" class="form-control banner-input" id="bannerTimerText" onkeyup="saveValue(this)" placeholder="Oferta Termina En:">
         </div>
 
         <div class="form-group">
             <label for="bannerMarket">Banner Market:</label>
-            <input type="text" class="form-control banner-input" id="bannerMarket" onkeyup="saveValue(this)" placeholder="Countdown Market">
+            <input type="text" class="form-control banner-input" id="bannerMarket" onkeyup="saveValue(this)" placeholder="Countdown Market. e.g lac, ita">
+        </div>
+
+        <div class="form-group">
+            <label for="lastInMarketLanguage">"Last" in market Language</label>
+            <input type="text" class="form-control banner-input" id="lastInMarketLanguage" onkeyup="saveValue(this)" placeholder="ÚLTIMOS">
+        </div>
+
+        <div class="form-group">
+            <label for="bannerMarket">Banner Market:</label>
+            <input type="text" class="form-control banner-input" id="daysInMarketLanguage" onkeyup="saveValue(this)" placeholder="DIAS">
+        </div>
+
+        <div class="form-group">
+            <label for="bannerMarket">Banner Market:</label>
+            <input type="text" class="form-control banner-input" id="bannerMarket" onkeyup="saveValue(this)" placeholder="Countdown Market. e.g lac, ita">
         </div>
     </div>
     `
@@ -550,7 +565,7 @@ function heroFieldsHTML() {
     </div>
     <div class="form-group">
         <label for="heroParentElement">Parent Element</label>
-        <input type="text" class="form-control hero-input" id="heroParentElement" onkeyup="saveValue(this)" placeholder="hero-parent-element" >
+        <input type="text" class="form-control hero-input" id="heroParentElement" onkeyup="saveValue(this)" placeholder="hero-image-container" value="hero-image-container">
     </div>
 
     <div class="form-group">
@@ -884,7 +899,7 @@ function generateCodeSnippet() {
     if (localStorage.getItem('include-heroBanner') == "true") {
         codeSnippet.innerText += `
     heroBanner(
-        ${data.heroComponent['heroParentElement'] ? "'." + data.heroComponent['heroParentElement'] + "'" : "''"},
+        ${data.heroComponent['heroParentElement'] ? "'." + data.heroComponent['heroParentElement'] + "'" : "'.hero-image-container'"},
         ${data.heroComponent['heroTextTop'] ? "'" + data.heroComponent['heroTextTop'] + "'" : "''"},
         ${data.heroComponent['heroTextBottom'] ? "'" + data.heroComponent['heroTextBottom'] + "'" : "''"},
         ${localStorage.getItem('checkedRadio') ? "'" + localStorage.getItem('checkedRadio') + "'" : "'Center'"},
@@ -898,7 +913,7 @@ function generateCodeSnippet() {
     if (localStorage.getItem('include-countdown') == "true") {
         codeSnippet.innerText += `
     countDown(
-        ${data.bannerComponent['countdownParentElement'] ? "'." + data.bannerComponent['countdownParentElement'] + "'" : "''"},
+        ${data.bannerComponent['countdownParentElement'] ? "'." + data.bannerComponent['countdownParentElement'] + "'" : "'.hero-image-container'"},
         ${data.bannerComponent['countdownStart'] ? "'" + getDateAndTime(data.bannerComponent['countdownStart']) + "'" : "''"}, 
         ${data.bannerComponent['countdownEnd'] ? "'" + getDateAndTime(data.bannerComponent['countdownEnd']) + "'" : "''"}, 
     {
