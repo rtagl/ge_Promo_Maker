@@ -653,11 +653,11 @@ function pillFieldsHTML() {
         <h3>Promo Dates</h3>
         <div class="d-flex justify-content-between">
             <div class="dates-input">
-                <label for="pillPromoStartDates">Start Date:</label>
+                <label for="pillPromoStartDates">Start Date: </label>
                 <input type="date" class="form-control promo-dates pill-input pill-criteria" id="pillPromoStartDates" onchange="saveValue(this)" placeholder="Pill Promo Start Date">
             </div>
             <div class="dates-input">
-                <label for="pillPromoEndDates">End Date:</label>
+                <label for="pillPromoEndDates">End Date: </label>
                 <input type="date" class="form-control promo-dates pill-input pill-criteria" id="pillPromoEndDates" onchange="saveValue(this)" placeholder="Pill Promo End Date">
             </div>
         </div>
@@ -786,8 +786,8 @@ function bookingFieldsHTML() {
     </div>
     <div class="booking-form-group">
         <div class="form-group">
-            <label for="popupBackgroundColor">Popup Background Color</label>
-            <input type="text" class="form-control exitbanner-details booking-popup-input" id="popupBackgroundColor" onkeyup="saveValue(this)" value="#ffffff">
+            <label for="popupBackgroundColor">Exit Popup Background Color</label>
+            <input type="text" class="form-control exitbanner-details booking-popup-input" id="popupBackgroundColor" onkeyup="saveValue(this)" placeholder="#ffffff">
         </div>
 
         <div class="form-group">
@@ -802,7 +802,7 @@ function bookingFieldsHTML() {
 
         <div class="form-group">
             <label for="popupTextColor">Offer Text Color:</label>
-            <input type="text" class="form-control exitbanner-details booking-popup-input" id="popupTextColor" onkeyup="saveValue(this)" value="#0b214d">
+            <input type="text" class="form-control exitbanner-details booking-popup-input" id="popupTextColor" onkeyup="saveValue(this)" placeholder="#0b214d">
         </div>
 
         <hr>
