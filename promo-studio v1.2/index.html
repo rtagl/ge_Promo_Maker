@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Promo Studio</h1>
+      <div class="d-flex justify-content-between component-menu">
+          <button class="btn btn-success component-menu-btn" id="hero-banner-button">Hero Banner</button>
+          <button class="btn btn-success component-menu-btn" id="countdown-banner-button">Countdown Banner</button>
+          <button class="btn btn-success component-menu-btn" id="pills-button">Pills</button>
+          <button class="btn btn-success component-menu-btn" id="exit-popup-button">Booking</button>         
+      </div>
+      <div id="hero-banner" class="forms">
+        <div class="d-flex justify-content-between include-component">
+          <h3>Hero Banner</h3>
+          <div>
+              <label for="include-heroBanner">Include Component?</label>
+              <input type="checkbox" id="include-heroBanner">
+          </div>
+      </div>
+      <div class="form-group">
+          <label for="heroParentElement">Parent Element</label>
+          <input type="text" class="form-control hero-input" id="heroParentElement" onkeyup="saveValue()" value="hero-image-container">
+      </div>
+
+      <div class="form-group">
+          <label for="heroTextTop">Hero Text: Top</label>
+          <input type="text" class="form-control hero-input" id="heroTextTop" onkeyup="saveValue()" placeholder="Hero Text Top">
+      </div>
+
+      <div class="form-group">
+          <label for="heroTextBottom">Hero Text: Bottom</label>
+          <input type="text" class="form-control hero-input" id="heroTextBottom" onkeyup="saveValue()" placeholder="Hero Text Bottom">
+      </div>
+
+      <div class="form-group">
+          <label for="heroTextLocation">Hero Text Location</label>
+
+          <div class="d-flex justify-content-between hero-text-radio-btn">
+
+              <label for="heroTextLocationLeft">
+                  <input type="radio" class="form-control hero-input" id="Left" name="textLocation" onclick="saveRadio(this)"> Left
+              </label>
+
+              <label for="heroTextLocationCenter">
+                  <input type="radio" class="form-control hero-input" id="Center" name="textLocation" onclick="saveRadio(this)"> Center
+              </label>
+
+              <label for="heroTextLocationRight">
+                  <input type="radio" class="form-control hero-input" id="Right" name="textLocation" onclick="saveRadio(this)"> Right
+              </label>
+
+          </div>
+      </div>
+      
+      <div class="form-group">
+              <label for="heroImageDesktop">Desktop Hero Image ID.jpg</label>
+              <input type="text" class="form-control hero-input" id="heroImageDesktop" placeholder="Hero Image ID">
+      </div>
+      
+      <div class="form-group">
+              <label for="heroImageMobile">Mobile Hero Image ID.jpg</label>
+              <input type="text" class="form-control hero-input" id="heroImageMobile" placeholder="Hero Image ID">
+      </div>
+    </div>
+
+    
+
+    <div id="countdown-banner" class="forms">
+        <div class="d-flex justify-content-between include-component">
+            <h3>Countdown Banner</h3>
+            <div>
+                <label for="include-countdown">Include Component?</label>
+                <input type="checkbox" id="include-countdown">
+            </div>
+        </div>
+        <div class="banner-form-group">
+            <div class="form-group">
+                <label for="countdownParentElement">Parent Element</label>
+                <input type="text" class="form-control banner-input" id="countdownParentElement" placeholder="hero-parent-element">
+            </div>
+    
+            <div class="d-flex justify-content-between">
+                <div class="form-group">
+                    <label for="countdownStart">Countdown Start Time:</label>
+                    <input type="datetime-local" class="form-control banner-input" id="countdownStart" placeholder="Countdown Start Time" onchange="saveValue(this)">
+                </div>
+    
+                <div class="form-group">
+                    <label for="countdownEnd">Countdown End Time:</label>
+                    <input type="datetime-local" class="form-control banner-input" id="countdownEnd" placeholder="Countdown End Time" onchange="saveValue(this)">
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <label for="bannerOffer">ADÉMAS:</label>
+                <input type="text" class="form-control banner-input" id="bannerOffer" placeholder="ADÉMAS: ">
+            </div>
+            
+            <div class="form-group">
+                    <label for="bannerText">Banner Text:</label>
+                    <input type="text" class="form-control banner-input" id="bannerText" placeholder="Offer Text">
+            </div>
+            
+            <div class="form-group">Offer SubText:</label>
+                    <input type="text" class="form-control banner-input" id="bannerSubText" placeholder="Offer SubText">
+            </div>
+    
+            <div class="form-group">
+                <label for="bannerTimerText">Banner Timer Text:</label>
+                <input type="text" class="form-control banner-input" id="bannerTimerText" placeholder="Oferta Termina En:">
+            </div>
+    
+            <div class="form-group">
+                <label for="bannerMarket">Banner Market:</label>
+                <input type="text" class="form-control banner-input" id="bannerMarket" placeholder="Countdown Market. e.g lac, ita">
+            </div>
+    
+            <div class="form-group">
+                <label for="lastInMarketLanguage">"Last" in market Language</label>
+                <input type="text" class="form-control banner-input" id="lastInMarketLanguage" placeholder="ÚLTIMOS">
+            </div>
+    
+            <div class="form-group">
+                <label for="daysInMarketLanguage">Banner Market:</label>
+                <input type="text" class="form-control banner-input" id="daysInMarketLanguage" placeholder="DIAS">
+            </div>
+    
+            <div class="form-group">
+                <label for="dst">Is it Day Lights Savings?</label>
+                <input type="text" class="form-control banner-input" id="dst" placeholder="True or False?">
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div id="pills" class="forms">
+        <div class="d-flex justify-content-between include-component">
+            <h3>Pills</h3>
+            <div>
+                <label for="include-pills">Include Component?</label>
+                <input type="checkbox" id="include-pills">
+            </div>
+        </div>
+        <div class="pills-form-group">
+        <div class="form-group">
+            <label for="pillColor">Pill Color:</label>
+            <input type="text" class="form-control pill-input pill-details" id="pillColor" placeholder="Pill Color">
+        </div>
+    
+        <div class="form-group">
+            <label for="pillText">Pill Text:</label>
+            <input type="text" class="form-control pill-input pill-details" id="pillText" placeholder="Pill Text">
+        </div>
+    
+        <div class="form-group">
+            <label for="pillClass">Pill Class:</label>
+            <input type="text" class="form-control pill-input pill-details" id="pillClass" placeholder="Pill Class">
+        </div>
+    
+        <div class="form-group">
+            <label for="shipCodes">Ship Codes:</label>
+            <input type="text" class="form-control pill-input pill-criteria" id="shipCodes" pattern="[A-Z]{2}" title="TWO letter Ship code" placeholder="Ships IDs">
+        </div>
+    
+        <hr>
+        
+        <div class="form-group">
+            <h3>Promo Dates</h3>
+            <div class="d-flex justify-content-between">
+                <div class="dates-input">
+                    <label for="pillPromoStartDates">Start Date: </label>
+                    <input type="date" class="form-control promo-dates pill-input pill-criteria" id="pillPromoStartDates" onchange="saveValue(this)" placeholder="Pill Promo Start Date">
+                </div>
+                <div class="dates-input">
+                    <label for="pillPromoEndDates">End Date: </label>
+                    <input type="date" class="form-control promo-dates pill-input pill-criteria" id="pillPromoEndDates" onchange="saveValue(this)" placeholder="Pill Promo End Date">
+                </div>
+            </div>
+            <div class="insert-pill-promo-dates">
+            
+            </div>
+    
+            <button class="btn add-promo-dates btn-success">+ Add Promo Dates +</button>
+        </div>
+    
+        <hr>
+    
+        <div class="form-group">
+            <h3>Eligible Sailing Ranges</h3>
+            <div class="d-flex justify-content-between">
+                <div class="dates-input">
+                    <label for="sailingStartDate">Start Date:</label>
+                    <input type="date" class="form-control pill-input pill-criteria" id="sailingStartDate" placeholder="Start Date">
+                </div>
+                <div class="dates-input">
+                    <label for="sailingEndDate">End Date:</label>
+                    <input type="date" class="form-control pill-input pill-criteria" id="sailingEndDate" placeholder="End Date">
+                </div>
+            </div>
+            <div class="insert-pill-sailing-dates">
+    
+            </div>
+            <button class="btn add-sailing-dates btn-success">+ Add Sailing Dates +</button>
+        </div>
+    
+        <hr>
+    
+        <div class="form-group">
+            <h3>Number of Nights</h3>
+            <div class="d-flex justify-content-between">
+                <div class="nights-input">
+                    <label for="minNights">Min Nights:</label>
+                    <input type="Number" class="form-control pill-input pill-criteria" id="minNights" placeholder="Minimum Nights">
+                </div>
+                <div class="nights-input">
+                    <label for="maxNights">Max Nights:</label>
+                    <input type="number" class="form-control pill-input pill-criteria" id="maxNights" placeholder="Maximum Nights">
+                </div>
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <label for="departurePorts">Departure Ports: Comma Separated</label>
+            <input type="text" class="form-control pill-input pill-criteria" id="departurePorts" placeholder="Departure Ports">
+        </div>
+    
+        <div class="form-group">
+            <label for="destinationPorts">Destination Ports:</label>
+            <input type="text" class="form-control pill-input pill-criteria" id="destinationPorts" placeholder="Destination Ports">
+        </div>
+        
+        <hr>
+    
+        <h2>EXCLUSIONS</h2>
+    
+        <div class="form-group">
+            <label for="exShipCodes">Ship Codes:</label>
+            <input type="text" class="form-control pill-input pill-exclusions" id="exShipCodes" placeholder="Exclude Ships IDs">
+        </div>
+    
+        <div class="form-group">
+            <h3>Number of Nights</h3>
+                <div class="d-flex justify-content-between">
+                <div class="nights-input">
+                    <label for="exMinNights">Min Nights:</label>
+                    <input type="Number" class="form-control pill-input pill-exclusions" id="exMinNights" placeholder="Minimum Nights">
+                </div>
+                <div class="nights-input">
+                    <label for="exMaxNights">Max Nights:</label>
+                    <input type="number" class="form-control pill-input pill-exclusions" id=exMaxNights" placeholder="Maximum Nights">
+                </div>
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <label for="exDeparturePorts">Exclude Departure Ports:</label>
+            <input type="text" class="form-control pill-input pill-exclusions" id="exDeparturePorts" placeholder="Departure Ports">
+        </div>
+    
+        <div class="form-group">
+            <label for="exDestinationPorts">Excl Destination Ports:</label>
+            <input type="text" class="form-control pill-input pill-exclusions" id="exDestinationPorts" placeholder="Destination Ports">
+        </div>
+    
+        <div class="form-group">
+            <h3>Excl. Sailing Ranges</h3>
+            <div class="d-flex justify-content-between">
+                <div class="dates-input">
+                    <label for="exSailingStartDate">Start Date:</label>
+                    <input type="date" class="form-control pill-input pill-exclusions" id="exSailingStartDate" placeholder="Start Date">
+                </div>
+                <div class="dates-input">
+                    <label for="exSailingEndDate">End Date:</label>
+                    <input type="date" class="form-control pill-input pill-exclusions" id="exSailingEndDate" placeholder="End Date">
+                </div>
+            </div>
+            <div class="insert-pill-exSailing-dates">
+    
+            </div>
+            <button class="btn add-exSailing-dates btn-success">+ Add Sailing Dates Excl.+</button>
+        </div>
+    
+        <div class="form-group">
+            <label for="exPillClass">Excl. Pill Class:</label>
+            <input type="text" class="form-control pill-input pill-exclusions" id="exPillCLass" placeholder="Excl. Pill Class">
+        </div>
+    
+        </div>
+
+    </div>
+
+    
+
+    <div id="exit-popup" class="forms">
+        <div class="d-flex justify-content-between include-component">
+            <h3>Booking Exit Popup</h3>
+            <div>
+                <label for="include-bookingPopup">Include Component?</label>
+                <input type="checkbox" id="include-bookingPopup">
+            </div>
+        </div>
+        <div class="booking-form-group">
+            <div class="form-group">
+                <label for="popupBackgroundColor">Exit Popup Background Color</label>
+                <input type="text" class="form-control exitbanner-details booking-popup-input" id="popupBackgroundColor" placeholder="#ffffff">
+            </div>
+    
+            <div class="form-group">
+                <label for="popupOfferText">Popup Offer Text:</label>
+                <input type="text" class="form-control exitbanner-details booking-popup-input" id="popupOfferText" placeholder="Monthly Offer Text" onchange="saveValue(this)">
+            </div>
+    
+            <div class="form-group">
+                <label for="popupOfferSubText">Popup Offer SubText:</label>
+                <input type="text" class="form-control exitbanner-details booking-popup-input" id="popupOfferSubText" placeholder="Flash Sale Text (if applicable)" onchange="saveValue(this)">
+            </div>
+    
+            <div class="form-group">
+                <label for="popupTextColor">Offer Text Color:</label>
+                <input type="text" class="form-control exitbanner-details booking-popup-input" id="popupTextColor" placeholder="#0b214d">
+            </div>
+    
+            <hr>
+    
+            <div class="form-group">
+                    <label for="continueBtnText">Continue Button Text:</label>
+                    <input type="text" class="form-control continueBtn booking-popup-input" id="continueBtnText" placeholder="CONTINUAR">
+            </div>
+            
+            <div class="form-group">
+                    <label for="continueBtnTextColor">Continue Button Text Color:</label>
+                    <input type="text" class="form-control continueBtn booking-popup-input" id="continueBtnTextColor" placeholder="#000000">
+            </div>
+    
+            <div class="form-group">
+                <label for="continueBtnBackgroundColor">Continue Button Background Color:</label>
+                <input type="text" class="form-control continueBtn booking-popup-input" id="continueBtnBackgroundColor" placeholder="#febd11">
+            </div>
+    
+            <hr>
+    
+            <div class="form-group">
+                <label for="cancelBtnText">Cancel Button Text:</label>
+                <input type="text" class="form-control cancelBtn booking-popup-input" id="cancelBtnText" placeholder="SALIR">
+            </div>
+    
+            <div class="form-group">
+                <label for="cancelBtnTextColor">Continue Button Text Color:</label>
+                <input type="text" class="form-control cancelBtn booking-popup-input" id="cancelBtnTextColor" value="#000000">
+            </div>
+    
+            <div class="form-group">
+                <label for="cancelBtnBackgroundColor">Continue Button Text Color:</label>
+                <input type="text" class="form-control cancelBtn booking-popup-input" id="cancelBtnBackgroundColor" value="#ffffff">
+            </div>
+    
+            <div class="form-group">
+                <label for="cancelBtnBorderColor">Continue Button Text Color:</label>
+                <input type="text" class="form-control cancelBtn booking-popup-input" id="cancelBtnBorderColor" value="#000000">
+            </div>
+    
+            <hr>
+    
+            <div class="form-group">
+                <label for="exitHours">Popup Hours:</label>
+                <input type="text" class="form-control exitClock booking-popup-input" id="exitHours" value="cancelar">
+            </div>
+    
+            <div class="form-group">
+                <label for="exitMinutes">Popup Minutes:</label>
+                <input type="text" class="form-control exitClock booking-popup-input" id="exitMinutes" value="#000000">
+            </div>
+    
+            <div class="form-group">
+                <label for="exitSeconds">Popup Seconds:</label>
+                <input type="text" class="form-control exitClock booking-popup-input" id="ExitSeconds" value="#ffffff">
+            </div>
+    
+            <div class="form-group">
+                <label for="exitHoursLeft">Popup Hours Left:</label>
+                <input type="text" class="form-control exitClock booking-popup-input" id="exitHoursLeft" value="#000000">
+            </div>
+    
+            <div class="form-group">
+                <label for="exitClockTextColor">Exit Clock Text Color:</label>
+                <input type="text" class="form-control exitClock booking-popup-input" id="exitClockTextColor" value="#0b214d">
+            </div>
+    
+            <hr>
+    
+            <div class="form-group">
+                <label for="exitClockStartTime">Exit Clock Start Time:</label>
+                <input type="datetime-local" class="form-control exitClockCountdown booking-popup-input" id="exitClockStartTime">
+            </div>
+    
+            <div class="form-group">
+                <label for="exitClockTextColor">Exit Clock End Time:</label>
+                <input type="datetime-local" class="form-control exitClockCountdown booking-popup-input" id="exitClockEndTime">
+            </div>
+    
+            <hr>
+    
+            <div class="form-group">
+                <label for="exitClockCountry">Exit Clock Country Code:</label>
+                <input type="text" class="form-control exitClockCountry booking-popup-input" id="exitClockCountry" placeholder="lac">
+            </div>
+    
+        </div>
+    </div>
+    </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
+</body>
+</html>

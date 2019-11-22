@@ -1,0 +1,109 @@
+#invoke-init-text {
+  margin-top: 20px;
+  border-radius: 4px
+}
+
+.container {
+  width:60%;
+
+}
+.promo-maker {
+  width: 100%;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+pre code {
+  font-family: monospace;
+  display: block;
+  padding: 10px;
+  width: 100%;
+  color: #c2005b;
+  font-size: 12px;
+  padding-left: 0px;
+  margin: 0 auto;
+  border-radius: 6px;
+}
+
+pre {
+  padding: 0px !important;
+}
+
+.copy-text {
+  margin-bottom: 20px;
+  margin-top: 0px;
+}
+
+
+.component-menu {
+  width: 100%
+}
+
+.include-component {
+  margin-top: 20px;
+}
+
+.component-menu button {
+  width: 20%;
+  background-color: rgb(93, 0, 255);
+}
+
+.component-menu button:hover {
+  background-color: rgb(157, 0, 255);
+}
+
+.promo-submit {
+  margin-top: 20px;
+}
+
+.hero-text-radio-btn {
+  width: 80%;
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 950px) {
+  .component-menu-btn {
+      font-size: 10px;
+  }
+}
+
+@media only screen and (max-width: 690px) {
+  .component-menu-btn {
+      font-size: 8px;
+  }
+}
+
+body {
+  background-color: rgb(238, 238, 238)
+}
+
+.form-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.add-promo-dates {
+  margin-top: 20px;
+}
+
+.add-sailing-dates {
+  margin-top: 20px;
+}
+
+.dates-input {
+  width: 48%;
+}
+
+.added-inputs {
+  margin-top: 8px;
+}
+
+.nights-input {
+  width: 48%;
+}
+
+.add-exSailing-dates {
+  margin-top: 20px;
+}
